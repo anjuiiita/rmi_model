@@ -1,17 +1,26 @@
 public class CmdAgentImpl implements CmdAgent {
 
-    public native Object getCurrentLocalTime(GetLocalTime cmdObj);
+    public native GetLocalTime getCurrentLocalTime(GetLocalTime cmdObj);
+    public native GetVersion getlocalVersion(GetVersion cmdObj);
 
-    /*static {
-        System.loadLibrary("client");
-    }*/
+    static {
+        final String dir = System.getProperty("user.dir");
+        System.load(dir + "/client.so");
+    }
 
-    public Object execute(String CmdID, Object CmdObj) {
+    public GetLocalTime executeTime(String CmdID, GetLocalTime CmdObj) {
         if (CmdID.equals("GetLocalTime")) { 
-            //CmdAgentClass cmd = new CmdAgentClass();    
-            //return cmd.getCurrentLocalTime((GetLocalTime)CmdObj); 
-            return CmdObj;  
+            CmdAgentImpl cmd = new CmdAgentImpl();    
+            return cmd.getCurrentLocalTime((GetLocalTime)CmdObj);
+        } 
+        return null;
+    }
+
+    public GetVersion executeVersion(String CmdID, GetVersion CmdObj) {
+        if (CmdID.equals("GetVersion")) {
+            CmdAgentImpl cmd = new CmdAgentImpl(); 
+            return cmd.getlocalVersion((GetVersion)CmdObj);
         }
-        return CmdObj;
+        return null;
     }
 }

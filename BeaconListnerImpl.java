@@ -1,4 +1,3 @@
-import java.util.*;
 import java.time.Instant;
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
@@ -25,7 +24,7 @@ public class BeaconListnerImpl implements BeaconListener {
                 this.obj.addBeacons(beacon.CmdAgentID, (int)Instant.now().getEpochSecond());
             }
             
-            /*try {  
+            try {  
                 // Getting the registry 
                 Registry registry = LocateRegistry.getRegistry(null); 
            
@@ -35,11 +34,17 @@ public class BeaconListnerImpl implements BeaconListener {
                 String CmdID = "GetLocalTime";
                 GetLocalTime CmdObj = new GetLocalTime();
                 CmdObj.valid = 0;
-                stub.execute(CmdID, CmdObj);
+                GetLocalTime local = stub.executeTime(CmdID, CmdObj);
+                if (local.valid == 1)
+                    System.out.println( "Agent local time " + local.time);
+                CmdID = "GetVersion";
+                GetVersion VerObj = new GetVersion();
+                GetVersion version = stub.executeVersion(CmdID, VerObj);
+                System.out.println( "Agent local version " + version.version);
              } catch (Exception e) {
                 System.err.println("BeaconListener Client exception: " + e.toString()); 
                 e.printStackTrace(); 
-             }*/
+             }
         }
     }
     

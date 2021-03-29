@@ -4,8 +4,7 @@ public class GetVersion implements Serializable {
     int version;
     private static final long serialVersionUID = 1L;
 
-    GetVersion(int version) {
-        this.version = version;
+    GetVersion() {
     }
 
     public int getVersion() {

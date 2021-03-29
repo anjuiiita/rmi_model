@@ -1,5 +1,6 @@
 import java.rmi.*;
 
 public interface CmdAgent extends java.rmi.Remote {     
-    public Object execute(String CmdID, Object CmdObj) throws RemoteException;
+    public GetLocalTime executeTime(String CmdID, GetLocalTime CmdObj) throws RemoteException;
+    public GetVersion executeVersion(String CmdID, GetVersion CmdObj) throws RemoteException;
 }
