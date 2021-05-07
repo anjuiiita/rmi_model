@@ -4,12 +4,13 @@ import java.rmi.server.UnicastRemoteObject;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 
-public class CmdRegister extends CmdAgentImpl implements Runnable {
+public class CmdRegister implements Runnable {
+
+    CmdRegister() {}
 
     public void run() {
-        try { 
-
-            CmdAgentImpl obj = new CmdAgentImpl();
+        CmdAgentImpl obj = new CmdAgentImpl();
+        try {        
             CmdAgent stub = (CmdAgent) UnicastRemoteObject.exportObject(obj, 0);
 
             // Bind the remote object's stub in the registry
@@ -18,8 +19,8 @@ public class CmdRegister extends CmdAgentImpl implements Runnable {
             System.err.println("CmdRegister Server ready");
          } catch (RemoteException e) { 
             System.err.println("CmdRegister Agent exception: " + e.toString()); 
-         } catch(AlreadyBoundException e) {
-            //System.err.println("CmdRegister Agent exception: " + e.toString());
+         } catch ( AlreadyBoundException ex) {
+            System.err.println("The RMI binding is already in place.");
          }
     }
 }

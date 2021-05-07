@@ -5,6 +5,9 @@ import java.io.*;
 
 public class BeaconSender implements Runnable {
 
+    BeaconSender() {
+    }
+
     public void run() {
         try {  
             // Getting the registry 
@@ -17,13 +20,12 @@ public class BeaconSender implements Runnable {
             System.out.println("Please provide agent ID");
             Console console = System.console();
             String agentId = console.readLine();
-            int port = Integer.parseInt(agentId);
             while(true) {
                 System.out.println("Sending beacon");
                 int ID = 1; 
                 int startUpTime = (int)Instant.now().getEpochSecond();
                 String CmdAgentID = agentId;
-                Beacon b = new Beacon(ID, startUpTime, CmdAgentID, port);
+                Beacon b = new Beacon(ID, startUpTime, CmdAgentID);
                 stub.deposit(b); 
                 Thread.sleep(5000);
             }

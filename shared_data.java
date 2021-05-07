@@ -1,15 +1,17 @@
-import java.util.*;
+
+import java.util.concurrent.*;
 
 public class shared_data {
-    Map<String, Integer> beacons = new HashMap<String, Integer>();
-    Map<String, Boolean> dead_client = new HashMap<String, Boolean>(); 
+    ConcurrentHashMap<String, Integer> beacons = new ConcurrentHashMap<String, Integer>();
+    ConcurrentHashMap<String, Boolean> dead_client = new ConcurrentHashMap<String, Boolean>(); 
 
     public synchronized void addBeacons(String agentID, int time) {
         this.beacons.put(agentID, time);
     }
 
     public synchronized void removeBeacons(String agentID) {
-        this.beacons.remove(agentID);
+        if (this.beacons.containsKey(agentID))
+            this.beacons.remove(agentID);
     }
 
     public synchronized void addDeadAgent(String agentID) {
@@ -17,7 +19,8 @@ public class shared_data {
     }
 
     public synchronized void deleteDeadAgent(String agentID) {
-        this.dead_client.remove(agentID);
+        if (this.dead_client.containsKey(agentID))
+            this.dead_client.remove(agentID);
     }
     
 }

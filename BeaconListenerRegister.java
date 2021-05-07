@@ -3,11 +3,10 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 
 
-public class BeaconListenerRegister extends BeaconListnerImpl implements Runnable {
+public class BeaconListenerRegister implements Runnable {
 
     shared_data bObj = null;
     BeaconListenerRegister(shared_data obj) {
-        super(obj);
         this.bObj = obj;
     }
     
